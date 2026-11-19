@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Performance Marketing Learning Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a phase "track" map up top (the drawing), then each module as a work card: learn / do / answer / proof, with a tick-off checklist saved in this browser. */
+:root{
+  --paper:#f4f5f7; --card:#ffffff; --ink:#18202b; --muted:#5b6574; --line:#dde1e7;
+  --accent:#1f56d6; --accent-soft:#e7eefc; --done:#13805a; --done-soft:#e3f4ec; --warn:#b5590f;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#11151b; --card:#181d25; --ink:#e7ebf1; --muted:#9aa4b2; --line:#2a313c;
+    --accent:#7aa2ff; --accent-soft:#1b2640; --done:#4cc890; --done-soft:#14281f; --warn:#f0a35e;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#11151b; --card:#181d25; --ink:#e7ebf1; --muted:#9aa4b2; --line:#2a313c;
+  --accent:#7aa2ff; --accent-soft:#1b2640; --done:#4cc890; --done-soft:#14281f; --warn:#f0a35e;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font:15px/1.55 var(--body)}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 64px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:34px;font-weight:700}
+h2{font-size:22px;font-weight:600}
+h3{font-size:18px;font-weight:600}
+.lede{color:var(--muted);max-width:68ch;margin:8px 0 0}
+header{display:grid;gap:18px;grid-template-columns:1fr auto;align-items:end}
+.progress{min-width:240px;display:grid;gap:6px}
+.progress .bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.progress .bar i{display:block;height:100%;width:0;background:var(--done);transition:width .3s}
+.progress .lab{font:500 13px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+button.reset{justify-self:start;background:none;border:1px solid var(--line);color:var(--muted);font:12px var(--mono);padding:4px 8px;border-radius:6px;cursor:pointer}
+button.reset:hover{color:var(--ink);border-color:var(--muted)}
+/* map */
+.map{margin:28px 0 8px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative;overflow-x:auto}
+.phase{position:relative;padding:0 10px 0 0;min-width:180px}
+.phase .head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.dot{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font:600 13px var(--mono);display:grid;place-items:center;flex:none}
+:root[data-theme="dark"] .dot{color:#0d1220}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .dot{color:#0d1220}}
+.phase .rail{position:absolute;top:13px;left:26px;right:0;height:2px;background:var(--line);z-index:0}
+.phase:last-child .rail{display:none}
+.phase .head span{font:600 14px var(--display);background:var(--paper);padding-right:6px;position:relative;z-index:1}
+.phase .weeks{font:12px var(--mono);color:var(--muted);margin:-6px 0 8px 34px}
+.chips{display:grid;gap:6px;margin-left:34px}
+.chip{display:block;text-align:left;font:13px/1.3 var(--body);padding:7px 9px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:7px;cursor:pointer;text-decoration:none}
+.chip:hover{border-color:var(--accent)}
+.chip.done{background:var(--done-soft);border-color:var(--done)}
+.chip.done::before{content:"✓ ";color:var(--done);font-weight:600}
+.chip.partial{border-left:3px solid var(--accent)}
+.legend{font-size:13px;color:var(--muted);margin:6px 0 30px}
+/* rules strip */
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:36px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.rule b{display:block;font:600 15px var(--display);margin-bottom:4px}
+.rule p{margin:0;color:var(--muted);font-size:14px}
+/* modules */
+.phase-sec{margin-top:34px}
+.phase-sec > .ph{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
+.phase-sec > .ph small{font:12px var(--mono);color:var(--muted)}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 18px 14px;margin-bottom:14px;scroll-margin-top:16px}
+.mod.complete{border-color:var(--done)}
+.mod-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.tag{font:500 12px var(--mono);color:var(--accent);background:var(--accent-soft);padding:2px 7px;border-radius:5px}
+.mod-top .count{font:12px var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.why{color:var(--muted);margin:6px 0 12px;max-width:75ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.box h4{font:600 12px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:3px 0}
+.checks{list-style:none;padding:0!important}
+.checks li{display:flex;gap:8px;align-items:flex-start;margin:5px 0}
+.checks input{margin-top:4px;accent-color:var(--done);width:16px;height:16px;flex:none}
+.checks label{cursor:pointer}
+.checks input:checked + label{color:var(--muted);text-decoration:line-through}
+.checks input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.proof{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:14px}
+.proof b{font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--done);margin-right:6px}
+code{font:13px var(--mono);background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.res{font-size:14px;color:var(--muted)}
+.res a{color:var(--accent)}
+footer{margin-top:40px;color:var(--muted);font-size:13px}
+@media (max-width:760px){
+  header{grid-template-columns:1fr}
+  .map{grid-template-columns:repeat(5,minmax(180px,1fr))}
+  .cols,.rules{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.progress .bar i{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Performance Marketing Learning Roadmap</h1>
+    <p class="lede">Ten weeks, five phases, 15 modules. Each module has things to learn, a hands-on task on solarbooked.com or Elite IIT, interview questions to practise answering out loud, and the proof it gives you for the resume and portfolio. Tick items as you finish them; ticks are saved in this browser only.</p>
+  </div>
+  <div class="progress">
+    <div class="lab" id="plab">0 of 0 done</div>
+    <div class="bar"><i id="pbar"></i></div>
+    <button class="reset" id="reset" type="button">Clear all ticks</button>
+  </div>
+</header>
+
+<nav class="map" id="map" aria-label="Roadmap map"></nav>
+<p class="legend">Click a module to jump to it. Green = every item ticked. Blue edge = started.</p>
+
+<section class="rules" aria-label="How to use this">
+  <div class="rule"><b>Apply while you learn</b><p>Don't wait for week 10. Start applying in week 1 with the current resume; add each certificate and result the day you have it.</p></div>
+  <div class="rule"><b>Done means you can do it alone</b><p>A module is done when you've built it yourself, fixed something that broke, and can explain it in two minutes without notes.</p></div>
+  <div class="rule"><b>Only real numbers go on the resume</b><p>Every "proof" line gets filled from your own tests and accounts. No result, no bullet.</p></div>
+</section>
+
+<div id="modules"></div>
+
+<footer>Built for Umair, November 2026. Free sources unless noted: Skillshop (Google certifications), Google's help centres for GA4, Tag Manager, Looker Studio and Google Ads, Meta Blueprint and Meta's developer docs for the Conversions API.</footer>
+</div>
+
+<script>
+const PHASES = [
+ {n:1, name:"Quick wins + tracking base", weeks:"Weeks 1–3", mods:[
+  {id:"ads-search-cert", title:"Google Ads Search certification", tag:"Certificate",
+   why:"The single biggest gap on your resume, and the fastest to close. You already run Search daily.",
+   learn:["Search Excellence pillars: data strength, budgets, bidding, targeting and creatives","Bid strategies: Maximise conversions, tCPA, tROAS and when each fits","Match types, negatives, search-terms report","Quality Score parts: expected CTR, ad relevance, landing page experience","Responsive search ads and assets (sitelinks, callouts, calls)"],
+   do:["Finish the 2026 Skillshop course (activities count; don't skip them)","Use Google Ads' YouTube tutorials for any topic that doesn't click","Take the 75-minute exam; retake after 24 hours if needed"],
+   ask:["When would you use tCPA instead of Maximise conversions?","Your CPL doubled overnight. What do you check, in order?","How do you decide which search terms become negatives?"],
+   proof:"Certifications line on the resume: Google Ads Search Certification (2026)."},
+  {id:"gtm", title:"Google Tag Manager fundamentals", tag:"solarbooked.com",
+   why:"You've set up one call-button conversion. Now learn the system behind it so you can build any tag alone.",
+   learn:["Container, workspace, version, publish","Tags, triggers, variables; built-in vs user-defined variables","Click triggers on tel:, wa.me and buttons; form-submit triggers","Data layer basics: dataLayer.push and reading values","Preview mode and Tag Assistant for debugging"],
+   do:["Install GTM on solarbooked.com","Move GA4 from Site Kit to a GTM Google tag","Create triggers for form submit, call click, WhatsApp click","Break one trigger on purpose and find the fault in Preview"],
+   ask:["Walk me through how you tracked call-button clicks in GTM.","What's the difference between a tag and a trigger?","A tag fires twice per click. How do you find out why?"],
+   proof:"Talking point for interviews; resume already has the Elite IIT call-conversion line."},
+  {id:"ga4", title:"GA4 events, key events and reports", tag:"solarbooked.com",
+   why:"Most job posts list GA4. Employers want someone who can set it up and read it, not just open it.",
+   learn:["Automatic, enhanced-measurement, recommended and custom events","Key events (conversions) and why only real business actions qualify","Traffic acquisition vs user acquisition; session source/medium","Explorations: funnel and free-form","DebugView; data retention; linking GA4 to Google Ads"],
+   do:["Send form_submit, call_click, whatsapp_click from GTM to GA4","Mark the right ones as key events","Build a funnel exploration: landing page → form start → submit","Explore Google's free GA4 demo account (Merchandise Store)"],
+   ask:["What's the difference between an event and a key event?","GA4 shows fewer leads than your CRM. Give three reasons.","Which report tells you which campaign brought the most leads?"],
+   proof:"Feeds the week-6 resume line about GA4 + GTM event tracking."},
+  {id:"utm", title:"UTMs and attribution basics", tag:"Elite IIT",
+   why:"Without UTMs, GA4 can't tell your Meta campaigns apart. This is cheap, fast and makes every later report work.",
+   learn:["utm_source, utm_medium, utm_campaign, utm_content, utm_term","A naming rule and sticking to it (lower case, no spaces)","Meta's URL parameters field and dynamic values like {{campaign.name}}","Last click vs data-driven attribution; why Meta, Google and GA4 never agree"],
+   do:["Write a one-page UTM naming rule, e.g. source=facebook, medium=paid, campaign=neet_jayanagar","Apply it to every live Meta ad","Check in GA4 that each campaign appears separately"],
+   ask:["Why do Meta Ads Manager and GA4 report different lead counts?","How would you name UTMs for 4 branches and 9 courses?"],
+   proof:"Part of the week-6 tracking line: 'UTM-tagged campaigns'."}
+ ]},
+ {n:2, name:"Server-side + lead quality", weeks:"Weeks 3–5", mods:[
+  {id:"capi", title:"Meta Pixel + Conversions API in depth", tag:"Your Apps Script",
+   why:"You built this with help. Understanding every line is what lets you defend it in an interview and fix it alone.",
+   learn:["Payload fields: event_name, event_time (seconds), event_id, action_source, event_source_url, user_data, custom_data","Hashing: normalise, then SHA-256 for em and ph; fbp, fbc, IP and user agent stay unhashed","Deduplication: same event_name + same event_id from Pixel and CAPI","Event Match Quality and how each field raises it","test_event_code, Test Events tab, Diagnostics tab","Keeping the access token in Script Properties, never in HTML"],
+   do:["Read your Apps Script line by line and write one comment per line in your own words","Check your hashes are 64 hex characters (watch the signed-bytes bug in computeDigest)","Log Meta's response to a sheet tab with muteHttpExceptions","Confirm 'Deduplicated' events in Events Manager","Raise Event Match Quality by sending fbc and fbp"],
+   ask:["Why use CAPI if the Pixel already works?","How does Meta know a Pixel event and a CAPI event are the same lead?","What does Event Match Quality measure and how did you improve it?"],
+   proof:"Already on the resume (new Meta dataset). Add the EMQ before/after if it improves."},
+  {id:"stages", title:"Sending booked demos back to Meta", tag:"Elite IIT",
+   why:"This is the senior-level move: making Meta learn from bookings, not form fills.",
+   learn:["Custom event (DemoBooked) for landing-page and WhatsApp leads, matched by hashed phone/email + fbc","Conversion Leads for instant-form leads: lead_id, action_source system_generated, lead_event_source, event_source crm","Send every stage including the initial lead; stage time must be after lead time","Volume limits: about 50 events a week to optimise; below that it's for reporting"],
+   do:["Add a Status column to the leads sheet","Installable onEdit trigger: when Status = 'Demo booked', send DemoBooked via CAPI","Add a custom conversion for DemoBooked and a column in Ads Manager","Compare cost per booking by ad for 4 weeks"],
+   ask:["How do you make Meta optimise for lead quality, not just lead volume?","What's Conversion Leads optimisation and what does it need?"],
+   proof:"Resume line: 'Sent booked-demo events back to Meta via CAPI; cost per booking by ad: ₹X'. Fill from your data."},
+  {id:"offline", title:"Google Ads offline conversion import", tag:"Elite IIT",
+   why:"The Google side of the same idea: tell Google Ads which clicks became bookings.",
+   learn:["GCLID: what it is and where it lives in the URL","Hidden form field to capture GCLID into your sheet","Offline conversion upload (sheet or scheduled upload)","Enhanced conversions for leads (hashed email/phone) as the newer option","Conversion actions: primary vs secondary"],
+   do:["Add a hidden GCLID field to the landing-page forms","Store it in the leads sheet","Upload booked demos as a 'Demo booked' conversion action","Watch cost per booking by campaign in Google Ads"],
+   ask:["How would you track which Google clicks turned into admissions?","Primary vs secondary conversion actions: what's the difference for bidding?"],
+   proof:"Resume line: 'Imported offline demo bookings into Google Ads'."}
+ ]},
+ {n:3, name:"Reporting + second certificate", weeks:"Week 6", mods:[
+  {id:"looker", title:"Looker Studio dashboard", tag:"Elite IIT",
+   why:"A live dashboard the business uses is the strongest portfolio piece you can make in a week.",
+   learn:["Data sources: GA4, Google Ads, Google Sheets connectors","Blending data (spend from ads + bookings from the sheet)","Calculated fields: CPL, cost per booking, conversion rate","Date-range controls and filters by branch/course","Sharing and scheduled email delivery"],
+   do:["One page: leads by channel, course and branch; CPL; bookings; cost per booking","Share with Rakesh; schedule a weekly email","Screenshot with sensitive numbers blurred for the portfolio"],
+   ask:["Show me a dashboard you built. What decision did it change?","How do you calculate cost per booking when spend and bookings live in different tools?"],
+   proof:"Portfolio piece + resume line: 'Looker Studio dashboard of leads, CPL and bookings by channel'."},
+  {id:"ga4-cert", title:"Google Analytics certification", tag:"Certificate",
+   why:"Backs up every GA4 claim on the resume with something an ATS can match.",
+   learn:["Revise modules 3 and 4","Property setup, data streams, consent, reporting identity"],
+   do:["Skillshop course activities","Take the exam"],
+   ask:["What is a data stream?","What changed from Universal Analytics to GA4?"],
+   proof:"Certifications line: Google Analytics Certification."}
+ ]},
+ {n:4, name:"Campaign skills", weeks:"Weeks 6–9", mods:[
+  {id:"gads-deep", title:"Google Ads beyond the basics", tag:"Elite IIT",
+   why:"Interviews test judgement: what you'd change, and why, in a real account.",
+   learn:["Search-terms mining and negative keyword lists","Account structure by course/branch; budget split by demand","Ad schedule and location bid adjustments from your own data","Performance Max: what it is, asset groups, when it fits lead gen","Google Ads Measurement certification (optional third cert)"],
+   do:["Weekly search-terms review: add negatives, note wasted spend saved","Pull CPL by hour/day and location; adjust","If allowed, one small PMax or remarketing test (₹3–5K)"],
+   ask:["You have ₹30K a month for 4 branches. How do you split it?","How do you stop paying for irrelevant searches?","When would you not use Performance Max?"],
+   proof:"Resume line if it moves numbers: 'Cut wasted Search spend X% with negative keyword lists'."},
+  {id:"meta-2026", title:"Meta Ads in 2026: Advantage+ and structure", tag:"Elite IIT",
+   why:"Advantage+ is now the default for Leads campaigns. Your course/branch segmentation is the older style; know both.",
+   learn:["Advantage+ audience with location as a limit","Campaign budget vs ad set budget","Learning phase: about 50 conversions a week; edits reset it","Consolidation: fewer campaigns, 30 days before big changes","Instant forms: more volume vs higher intent; qualifying questions"],
+   do:["Run one Advantage+ Leads campaign beside your current setup for 4 weeks","Compare CPL and cost per booking","Test a higher-intent instant form"],
+   ask:["What is the learning phase and how do you avoid resetting it?","Manual targeting or Advantage+? Defend your choice with your data."],
+   proof:"Resume line from the comparison: 'Advantage+ test: CPL ₹X vs ₹Y'."},
+  {id:"creative", title:"Creative testing system", tag:"Elite IIT",
+   why:"On Meta, creative now does what targeting used to. This turns your 'replaced weak creatives' into a method.",
+   learn:["Concepts vs variations: different angles, not colour swaps","Angles for coaching: results, toppers, fees, parent worries, demo offer","Metrics: CTR, cost per result, hook rate (3-sec views ÷ impressions), hold rate","Meta's A/B test tool; how long to run, when to call a winner"],
+   do:["Pull before/after cost per result for the creatives you already replaced (resume line)","Build a library of 5 distinct concepts","Run one proper A/B test with Meta's tool"],
+   ask:["How do you decide an ad is fatigued?","Walk me through how you'd test new creatives on ₹10K."],
+   proof:"Resume line: 'Refreshed underperforming creatives, cutting cost per result from ₹X to ₹Y'."},
+  {id:"audiences", title:"Retargeting and lookalikes", tag:"Elite IIT",
+   why:"Quick wins for lead quality with small budgets.",
+   learn:["Custom audiences: site visitors, form openers, IG/WhatsApp engagers","Lookalikes from a customer list of booked/joined students","Exclusions so you don't pay twice for the same person"],
+   do:["Upload a hashed list of booked students; build a 1% lookalike","Run a small retargeting ad set for form openers who didn't submit"],
+   ask:["Who would you retarget for a coaching institute, and with what message?"],
+   proof:"Resume line if results are clear."}
+ ]},
+ {n:5, name:"Interview readiness", weeks:"Weeks 9–10 (start practising week 1)", mods:[
+  {id:"math", title:"Metrics and quick maths", tag:"Practice",
+   why:"Interviewers check numbers live. Hesitating on ROAS or CPA is the fastest way to lose an offer.",
+   learn:["CTR, CPC, CPM, CVR, CPL, CPA, ROAS, blended CAC","Break-even CPA from fee and margin","Why ₹317 blended per booking includes organic leads, and how to say that"],
+   do:["Do 10 practice calculations from your own exports","Explain your four headline numbers in one minute each"],
+   ask:["Practice (made-up admissions): spend ₹20,617, 65 bookings, 10 admissions at ₹40K fee. What's cost per admission and ROAS?","Is a ₹57 CPL good? Compared with what?"],
+   proof:"Confidence in every interview."},
+  {id:"stories", title:"Your case stories (STAR)", tag:"Practice",
+   why:"Your results are good. You need to tell them clearly in under two minutes each.",
+   learn:["Situation, Task, Action, Result; numbers in the result","Saying 'we' vs 'I' honestly","Answering 'why are you leaving' without criticising Elite IIT"],
+   do:["Write and record 5 stories: 65 bookings; new Meta dataset (100+ undercounted leads); 7x organic leads; GTM call tracking; Maps top-3 rankings","Practise the salary answer: current ₹25K, target ₹5–5.5 LPA, and why"],
+   ask:["Tell me about a campaign you improved.","Tell me about a tracking problem you solved.","Why should we pay you ₹5 LPA?"],
+   proof:"Interview-ready answers."},
+  {id:"audit", title:"Practical round: account audit + media plan", tag:"Practice",
+   why:"Many agencies give a take-home or live audit. Practise before it counts.",
+   learn:["Audit checklist: tracking, structure, search terms, assets, landing pages, budget pacing","A one-page media plan: goal, budget split, KPIs, testing plan"],
+   do:["Audit the Elite IIT Google and Meta accounts as if you were new; write 10 fixes","Write a ₹50K/month plan for a coaching institute or a solar installer"],
+   ask:["Here's an account. What are the first three things you'd fix?","Plan a launch for ₹50K: channels, split, KPIs."],
+   proof:"Portfolio piece: anonymised audit + media plan."}
+ ]}
+];
+
+const KEY="umair-roadmap-v1";
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){state={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function fmt(s){return esc(s).replace(/`([^`]+)`/g,"<code>$1</code>")}
+
+const mapEl=document.getElementById("map"), modsEl=document.getElementById("modules");
+let total=0;
+PHASES.forEach(p=>{
+  const ph=document.createElement("div");ph.className="phase";
+  ph.innerHTML=`<div class="rail"></div><div class="head"><div class="dot">${p.n}</div><span>${esc(p.name)}</span></div><div class="weeks">${esc(p.weeks)}</div><div class="chips"></div>`;
+  const chips=ph.querySelector(".chips");
+  const sec=document.createElement("section");sec.className="phase-sec";
+  sec.innerHTML=`<div class="ph"><h2>Phase ${p.n}: ${esc(p.name)}</h2><small>${esc(p.weeks)}</small></div>`;
+  p.mods.forEach(m=>{
+    const a=document.createElement("a");a.className="chip";a.href="#"+m.id;a.id="chip-"+m.id;a.textContent=m.title;chips.appendChild(a);
+    const items=[...m.learn.map(t=>["Learn",t]),...m.do.map(t=>["Do",t])];
+    total+=items.length;
+    const art=document.createElement("article");art.className="mod";art.id=m.id;
+    const check=(list,prefix)=>list.map((t,i)=>{const k=m.id+"|"+prefix+i;return `<li><input type="checkbox" id="${k}" data-k="${k}" data-m="${m.id}" ${state[k]?"checked":""}><label for="${k}">${fmt(t)}</label></li>`}).join("");
+    art.innerHTML=`<div class="mod-top"><h3>${esc(m.title)}</h3><div style="display:flex;gap:8px;align-items:center"><span class="tag">${esc(m.tag)}</span><span class="count" id="cnt-${m.id}"></span></div></div>
+      <p class="why">${esc(m.why)}</p>
+      <div class="cols">
+        <div class="box"><h4>Learn</h4><ul class="checks">${check(m.learn,"L")}</ul></div>
+        <div class="box"><h4>Do it yourself</h4><ul class="checks">${check(m.do,"D")}</ul>
+          <h4 style="margin-top:12px">Answer out loud</h4><ul>${m.ask.map(q=>`<li>${esc(q)}</li>`).join("")}</ul></div>
+      </div>
+      <div class="proof"><b>Proof</b>${esc(m.proof)}</div>`;
+    art.dataset.n=items.length;
+    sec.appendChild(art);
+  });
+  mapEl.appendChild(ph);modsEl.appendChild(sec);
+});
+
+function refresh(){
+  let done=0;
+  document.querySelectorAll(".mod").forEach(art=>{
+    const boxes=art.querySelectorAll("input[type=checkbox]");
+    const d=[...boxes].filter(b=>b.checked).length;done+=d;
+    document.getElementById("cnt-"+art.id).textContent=`${d}/${boxes.length}`;
+    art.classList.toggle("complete",d===boxes.length);
+    const chip=document.getElementById("chip-"+art.id);
+    chip.classList.toggle("done",d===boxes.length);
+    chip.classList.toggle("partial",d>0&&d<boxes.length);
+  });
+  document.getElementById("plab").textContent=`${done} of ${total} done · ${Math.round(done/total*100)}%`;
+  document.getElementById("pbar").style.width=(done/total*100)+"%";
+}
+modsEl.addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)state[k]=1;else delete state[k];save();refresh();});
+document.getElementById("reset").addEventListener("click",()=>{state={};save();document.querySelectorAll(".checks input").forEach(b=>b.checked=false);refresh();});
+refresh();
+</script>
+</body>
+</html>
