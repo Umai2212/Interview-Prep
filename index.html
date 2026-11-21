@@ -94,6 +94,48 @@ code{font:13px var(--mono);background:var(--accent-soft);padding:1px 5px;border-
 .res{font-size:14px;color:var(--muted)}
 .res a{color:var(--accent)}
 footer{margin-top:40px;color:var(--muted);font-size:13px}
+
+/* study guide */
+.guide{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+.guide > summary{cursor:pointer;font:600 15px var(--display);color:var(--accent);list-style:none;display:flex;gap:8px;align-items:center}
+.guide > summary::-webkit-details-marker{display:none}
+.guide > summary::before{content:"▸";transition:transform .2s}
+.guide[open] > summary::before{transform:rotate(90deg)}
+.guide .gnote{font-size:13px;color:var(--muted);background:var(--accent-soft);border-radius:8px;padding:8px 10px;margin:10px 0}
+.chap{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--paper)}
+.chap > summary{cursor:pointer;padding:10px 12px;font:600 15px var(--display);display:flex;gap:10px;align-items:baseline}
+.chap > summary small{font:12px var(--mono);color:var(--muted);font-weight:400}
+.chap .inner{padding:0 12px 12px}
+.simple{background:var(--card);border-left:3px solid var(--accent);padding:10px 12px;border-radius:6px;margin:0 0 12px;max-width:80ch}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0}
+.qa .q{font-weight:600;margin-bottom:6px}
+.qa .lvl{display:grid;grid-template-columns:110px 1fr;gap:4px 10px;font-size:14px}
+.qa .lvl b{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding-top:3px}
+.qa details summary{cursor:pointer;color:var(--accent);font-size:13px;margin-top:6px}
+.gap{font-size:13px;color:var(--warn);margin:8px 0}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:10px 0}
+.vid{background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.frame{position:relative;aspect-ratio:16/9;background:#0d1117;cursor:pointer}
+.frame img{width:100%;height:100%;object-fit:cover;display:block;opacity:.85}
+.frame .play{position:absolute;inset:0;display:grid;place-items:center}
+.frame .play span{background:rgba(0,0,0,.65);color:#fff;border-radius:50%;width:56px;height:56px;display:grid;place-items:center;font-size:22px}
+.frame .pl{position:absolute;inset:0;display:grid;place-items:center;color:#e7ebf1;font:600 15px var(--display);text-align:center;padding:12px}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.frame:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.vmeta{padding:8px 10px;font-size:13px;display:grid;gap:4px}
+.vmeta .vt{font-weight:600;font-size:14px}
+.lang{font:500 11px var(--mono);padding:1px 6px;border-radius:4px;background:var(--accent-soft);color:var(--accent);margin-right:6px}
+.lang.HI{background:#fdf0e3;color:#9a4b07}.lang.KN{background:#e6f4ec;color:#13805a}
+.chs{display:flex;flex-wrap:wrap;gap:6px}
+.chs button{font:12px var(--mono);border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:5px;padding:2px 6px;cursor:pointer}
+.chs button:hover{border-color:var(--accent)}
+.vmeta a,.reads a{color:var(--accent)}
+.reads{margin:8px 0 0;padding-left:18px;font-size:14px}
+.reads li{margin:3px 0}
+.h5{font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:14px 0 4px}
+.langbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:-16px 0 30px;font-size:13px;color:var(--muted)}
+.langbar label{display:flex;gap:4px;align-items:center;cursor:pointer}
+.soon{font-size:13px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line);padding-top:8px}
 @media (max-width:760px){
   header{grid-template-columns:1fr}
   .map{grid-template-columns:repeat(5,minmax(180px,1fr))}
@@ -117,7 +159,8 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 </header>
 
 <nav class="map" id="map" aria-label="Roadmap map"></nav>
-<p class="legend">Click a module to jump to it. Green = every item ticked. Blue edge = started.</p>
+<p class="legend">Click a module to jump to it. Green = every item ticked. Blue edge = started. Phase 1 modules now include a study guide (chapters, interview Q&amp;A, videos and reading); open it from inside each card.</p>
+<div class="langbar" id="langbar">Show videos in: <label><input type="checkbox" value="EN" checked> English</label><label><input type="checkbox" value="HI" checked> Hindi</label><label><input type="checkbox" value="KN" checked> Kannada</label></div>
 
 <section class="rules" aria-label="How to use this">
   <div class="rule"><b>Apply while you learn</b><p>Don't wait for week 10. Start applying in week 1 with the current resume; add each certificate and result the day you have it.</p></div>
@@ -127,7 +170,7 @@ footer{margin-top:40px;color:var(--muted);font-size:13px}
 
 <div id="modules"></div>
 
-<footer>Built for Umair, November 2026. Free sources unless noted: Skillshop (Google certifications), Google's help centres for GA4, Tag Manager, Looker Studio and Google Ads, Meta Blueprint and Meta's developer docs for the Conversions API.</footer>
+<footer>Built for Umair, November 2026. Videos chosen from their source, date and chapter list; Claude can't watch videos, so skip any that turn out weak. Free sources unless noted: Skillshop (Google certifications), Google's help centres for GA4, Tag Manager, Looker Studio and Google Ads, Meta Blueprint and Meta's developer docs for the Conversions API.</footer>
 </div>
 
 <script>
@@ -293,6 +336,425 @@ function refresh(){
 modsEl.addEventListener("change",e=>{const k=e.target.dataset.k;if(!k)return;if(e.target.checked)state[k]=1;else delete state[k];save();refresh();});
 document.getElementById("reset").addEventListener("click",()=>{state={};save();document.querySelectorAll(".checks input").forEach(b=>b.checked=false);refresh();});
 refresh();
+</script>
+
+<script>
+/* Phase 1 study guide data. v = YouTube video id, s = start second, l = language, list = playlist id */
+const GUIDE = {
+"ads-search-cert": {
+ note: "Few creators teach the 2026 four-pillar version of the course by name. Most good material is Google's own help pages, so this guide leans on those and explains them in plain words. Videos are picked by source, date and chapter list. Claude can't watch them, so if one turns out weak, skip it.",
+ chapters: [
+ {t:"Search Excellence: the four pillars",
+  simple:"Google's 2026 Search course is built around four pillars that work together. <b>Data strength</b>: give Google accurate conversion data. <b>Bidding goals</b>: tell Smart Bidding the result you want. <b>Demand-led budgets</b>: let budget follow profitable demand instead of a fixed cap. <b>Targeting and creatives</b>: broad match or AI Max with strong responsive ads. The logic: Google's AI is only as good as the data, goal and room you give it.",
+  qa:[
+   {q:"What is Google's Search Excellence framework?",
+    s:"It's Google's model for running Search campaigns with AI, built on four pillars: data strength, bidding goals, demand-led budgets, and targeting and creatives.",
+    e:"Smart Bidding, broad match, AI Max and responsive search ads all make decisions automatically. They decide well only when the account has accurate conversion data, a clear business goal, a budget that doesn't choke good campaigns, and enough keywords and assets to work with. The pillars depend on each other. A Target CPA on broken tracking optimises toward the wrong thing.",
+    x:"At Elite IIT the first thing I fixed was broken Google Ads conversion tracking. Until that was right, no bidding strategy could learn properly. So I'd always start with data strength."},
+   {q:"In a new account, which pillar do you fix first?",
+    s:"Data strength, because every other pillar reads conversion data.",
+    e:"I check that the tags fire on every page and that each conversion action is set correctly: primary vs secondary, one count per lead, no double counting. I also check GA4 is linked. Only then do I touch bidding, budgets or keywords.",
+    x:"That's the order I followed at Elite IIT: fix conversion tracking, add call-button conversions in Tag Manager, then work on campaigns."}
+  ],
+  vids:[{v:"Iq-B1JRU9ck",l:"EN",t:"Why Google Ads 'data strength' is now super important",n:"Creator explainer, mid-2026"}],
+  reads:[
+   {t:"Data Strength best practices (Google Ads Help)",u:"https://support.google.com/google-ads/answer/16517525?hl=en"},
+   {t:"Search Excellence workbook (Google Partners PDF, older version: mentions retired expanded text ads)",u:"https://services.google.com/fh/files/misc/search_excellence_workbook.pdf"}
+  ]},
+ {t:"Data strength",
+  simple:"Data strength means how much accurate first-party conversion data Google gets from you. Browsers and cookie limits hide some conversions, and data strength recovers them. Google's help page splits it into four steps: <b>connect</b> your data (a tag on every page, GA4 linked to Ads, CRM or offline data via Data Manager), <b>maximise signals</b> (hashed email and phone through enhanced conversions, GCLID, lead IDs), <b>activate AI</b> (Smart Bidding, AI Max, Performance Max) and <b>prove ROI</b> (experiments, marketing mix models). Google Ads now shows a <b>Data strength uplift</b> metric: the % of extra conversions your setup recovered over the last 14 days.",
+  qa:[
+   {q:"What is data strength?",
+    s:"The quality and completeness of the first-party conversion data you give Google, so Smart Bidding learns from real outcomes.",
+    e:"It covers sitewide tagging (Google tag or Tag Manager on every page), enhanced conversions, which send hashed email or phone, storing the GCLID with each lead, importing offline results from your CRM, and Google tag gateway. Google recommends passing at least three identifiers per event, like GCLID, IP and hashed customer data. The Data strength uplift metric in Google Ads shows how many extra conversions the setup recovered.",
+    x:"At Elite IIT I fixed broken conversion tracking and added landing-page call-button conversions through Tag Manager. My next step is storing the GCLID with each lead in our sheet and importing booked demos, so Google bids for bookings, not just form fills."},
+   {q:"What are enhanced conversions?",
+    s:"Sending hashed customer data like email or phone with a conversion, so Google can match it to signed-in users and recover conversions that cookies miss.",
+    e:"The data is hashed with SHA-256 before it leaves the site. You set it up through the Google tag, Tag Manager or the API. Google's help page reports enhanced conversions improve Search bidding and lift YouTube conversions. There's also an 'enhanced conversions for leads' version that ties offline outcomes back to the click.",
+    x:"Meta's Conversions API hashes email and phone with SHA-256 the same way, so it's the same idea I use on the Meta side. Check your Apps Script hashes them before you say this."},
+   {q:"What is Google tag gateway?",
+    s:"It serves Google's tags through your own domain or CDN, so measurement runs on first-party infrastructure and loses less data.",
+    e:"Google reports advertisers who build data strength with tag gateway see about 14% more conversions on average. No re-tagging is needed; it's an upgrade to how the existing tag is delivered.",
+    x:""},
+   {q:"What is the GCLID and why store it?",
+    s:"The Google Click ID that auto-tagging adds to the landing-page URL. Storing it with each lead lets you upload later outcomes (like a booked demo) back to the exact click.",
+    e:"Without it, Google only knows a form was filled. With it, you can import 'demo booked' or 'admission' as an offline conversion and bid toward real business results.",
+    x:"Our landing-page leads go into a Google Sheet, so adding a hidden GCLID field is a small change with a big payoff."}
+  ],
+  vids:[
+   {v:"CfuutKzqeYA",s:150,l:"EN",t:"Ads DevCast E7: Growing your data strength with Data Manager API",n:"Official Google channel, a product manager for data strength. Starts at 'What is data strength?' (2:30). Gets technical after that."},
+   {v:"Iq-B1JRU9ck",l:"EN",t:"Why Google Ads 'data strength' is now super important",n:"Simpler creator explainer"}
+  ],
+  reads:[
+   {t:"Data Strength best practices (Google Ads Help)",u:"https://support.google.com/google-ads/answer/16517525?hl=en"},
+   {t:"Google blog: data strength updates and the uplift metric (Sep 2026)",u:"https://blog.google/products/ads-commerce/data-strength-updates/"},
+   {t:"Google tag gateway for advertisers (Google Ads Help)",u:"https://support.google.com/google-ads/answer/16214371?hl=en"},
+   {t:"Set up enhanced conversions with the Google tag",u:"https://support.google.com/google-ads/answer/13258081?hl=en"},
+   {t:"Ways to improve conversion measurement (Google tag, EC, consent mode)",u:"https://support.google.com/google-ads/answer/12445060?hl=en"}
+  ]},
+ {t:"Bidding goals (Smart Bidding)",
+  simple:"Pick the bid strategy from the business goal. <b>Leads with no value data</b>: Maximize conversions, then add a Target CPA once you have a cost goal and steady data. <b>Revenue or values</b>: Maximize conversion value, or Target ROAS. Since June 2026 Google labels 'Maximize conversions with a Target CPA' simply as <b>Target CPA</b>; the behaviour is the same. Set targets near your real recent CPA. A target that's too low cuts volume. Smart Bidding needs a learning period, so judge it over at least two weeks.",
+  qa:[
+   {q:"Maximize conversions or Target CPA: when do you use which?",
+    s:"Maximize conversions spends the budget to get as many conversions as possible. Target CPA aims for a set average cost per conversion. I start with Maximize conversions and add a target once the data is stable.",
+    e:"Target CPA uses real-time signals like device, location and time of day to bid per auction around your average target. Some conversions cost more, some less. If the target is too low it skips auctions that would have converted, so you get fewer conversions. Google suggests starting near your historical CPA and moving the target in small steps.",
+    x:"In October, Elite IIT's Google Search cost ₹221 per conversion (48 conversions on ₹10,611). If I set a Target CPA I'd start around ₹220, not ₹100, so I don't strangle volume."},
+   {q:"When would you use Target ROAS?",
+    s:"When conversions carry values, like revenue or different fees, and the goal is return on spend rather than count.",
+    e:"It needs value data with real variation. For a coaching institute you could assign values by course fee, so a long-term course counts more than a crash course. Then the bidder favours high-value leads.",
+    x:""},
+   {q:"Your CPL doubled overnight. What do you check, in order?",
+    s:"Tracking first, then changes, then search terms, competition, budget and the landing page.",
+    e:"1) Is the conversion tag still firing, and did anyone change a conversion action? 2) Change history: bids, budgets, ads or keywords edited? 3) Search terms: new irrelevant queries? 4) Auction insights: a new competitor? 5) Budget or impression share drops. 6) Is the landing page or form broken? 7) Seasonality, like exams ending.",
+    x:"At Elite IIT, Google Ads conversion tracking had broken once. Since then I always check tracking before blaming the campaign."},
+   {q:"What is the learning period?",
+    s:"After a new strategy or a big change, Smart Bidding needs time and conversions to calibrate, so results swing at first.",
+    e:"Avoid stacking changes during it. Account for conversion delay (people convert days after the click) and judge with the bid strategy report over at least two weeks.",
+    x:""}
+  ],
+  vids:[
+   {v:"CA8vrtl1Aj8",l:"EN",t:"Google Ads Smart Bidding strategies explained (2026)",n:"Max conversions vs Target CPA vs ROAS, April 2026"},
+   {v:"S7su6dnJQ7U",l:"EN",t:"Difference between Maximize conversions and Target CPA",n:"Framed for lead-gen campaigns"},
+   {v:"2WQ7CW73UBo",l:"HI",t:"Google Ads bidding strategy (Hindi)",n:"Hindi, 2025"}
+  ],
+  reads:[
+   {t:"Pick the right bid strategy (Google Ads Help)",u:"https://support.google.com/google-ads/answer/6167148"},
+   {t:"About Smart Bidding",u:"https://support.google.com/google-ads/answer/7065882?hl=en"},
+   {t:"About Target CPA bidding",u:"https://support.google.com/google-ads/answer/6268632?hl=en"},
+   {t:"How to adjust targets with Search Smart Bidding",u:"https://support.google.com/google-ads/answer/10433846?hl=en"}
+  ]},
+ {t:"Demand-led budgets",
+  simple:"The idea: growth should be limited by your <b>efficiency goal</b> (the CPA or ROAS you can afford), not by an arbitrary daily cap. If a campaign is hitting its target and is <b>Limited by budget</b>, it's leaving affordable conversions on the table. Raise its budget or move money from weaker campaigns. Watch <b>Search lost impression share (budget)</b>. Real life check: small businesses do have hard caps, so then you put the money where demand and conversion rates are highest.",
+  qa:[
+   {q:"What does 'demand-led budgets' mean?",
+    s:"Let budget follow profitable demand. Growth should be capped by your efficiency target, not by a fixed spend limit.",
+    e:"Search demand rises and falls with seasons and events. If extra conversions come at an acceptable CPA, the budget should rise with demand. The signals are the 'Limited by budget' status and Search lost IS (budget). Tools: shared budgets or portfolio strategies for similar campaigns, and Performance Planner for forecasts.",
+    x:"Coaching demand spikes around exam results and admission season, so I shift budget by course and season at Elite IIT instead of keeping it flat."},
+   {q:"How do you decide whether to raise a budget?",
+    s:"Raise it when the campaign is at or under its target CPA and losing impression share to budget. Don't raise it when CPA is already above target.",
+    e:"High lost IS (budget) with good CPA means more affordable demand is available. High CPA means fix efficiency first: search terms, ads, landing page, bids. Adding budget then only buys more expensive conversions.",
+    x:""}
+  ],
+  gap:"No good video covers this pillar by name, and there's no single official article. This explanation is built from Google's budget and impression-share help pages, listed below.",
+  vids:[],
+  reads:[
+   {t:"Fix 'Limited by budget' (Google Ads Help)",u:"https://support.google.com/google-ads/answer/2616012?hl=en"},
+   {t:"Get impression share data",u:"https://support.google.com/google-ads/answer/7103314?hl=en"},
+   {t:"Why Search ads get low traffic: 12 common reasons",u:"https://support.google.com/google-ads/answer/9208915?hl=en"}
+  ]},
+ {t:"Targeting and creatives: match types, AI Max, negatives, RSAs",
+  simple:"<b>Match types</b>: exact (closest intent), phrase (meaning includes your phrase), broad (related searches; works best with Smart Bidding). <b>AI Max</b> isn't a new campaign type. It's an optimisation layer inside Search campaigns that adds search-term matching beyond your keywords, text customisation and final-URL expansion. <b>Negatives</b> keep you off irrelevant searches; review the search terms report weekly. Terms you add from that report go in as exact negatives by default, and negative keywords don't match close variants. <b>RSAs</b>: give distinct headlines and descriptions. Google recommends at least two RSAs per ad group with Good or Excellent ad strength, but judge ads on conversions.",
+  qa:[
+   {q:"Explain broad, phrase and exact match.",
+    s:"Exact shows for searches with the same meaning, phrase for searches that include your meaning, broad for related searches. Broad gives the most reach and needs Smart Bidding plus negatives.",
+    e:"With broad match the bidder uses signals like the landing page and other keywords to judge relevance, so it works best with conversion-based bidding and good tracking. I use exact for core high-intent terms and broad to discover new ones, and I watch the search terms report.",
+    x:""},
+   {q:"What is AI Max for Search?",
+    s:"A one-click layer inside a Search campaign that uses Google AI to match more relevant searches, tailor ad text and send people to the best landing page on your site.",
+    e:"It's an evolution of Dynamic Search Ads and URL expansion, with controls like brand and URL inclusions or exclusions and locations of interest. New Search campaigns have it on by default, so you should decide deliberately whether to keep it.",
+    x:""},
+   {q:"How do you stop paying for irrelevant searches?",
+    s:"Weekly search terms review, negative keywords, and shared negative lists across campaigns.",
+    e:"I sort search terms by cost with no conversions, add the irrelevant ones as negatives, and keep themed lists (jobs, free, PDFs, other cities) applied to all campaigns. Negatives don't cover misspellings or plurals the way positive keywords do, so add the variants.",
+    x:"For a coaching institute the classic waste is job seekers and free-material searches, like 'teacher jobs' or 'free NEET PDF'. Those belong on a shared negative list."},
+   {q:"What makes a strong responsive search ad?",
+    s:"Distinct headlines that each work alone, keywords in two or three of them, a clear offer and call to action, and Good or Excellent ad strength.",
+    e:"Mix headline types: course plus location, proof (results, years), offer (free demo class), and a call to action. Don't repeat the same phrase. Judge on conversions, not only CTR, using asset and combination reports.",
+    x:"For Elite IIT that means course plus branch area, results or toppers, and 'Book a free demo class'."}
+  ],
+  vids:[
+   {v:"uLl5vNj2pzA",l:"EN",t:"Google Ads AI Max in 2026",n:"Out of beta, inside standard Search campaigns"},
+   {v:"4f7BK3ZNeEg",l:"EN",t:"Google Ads keyword match types: what should you use?",n:""},
+   {v:"uAHJpcsYYgc",l:"EN",t:"Negative keywords: exact vs broad negatives",n:"Older, but the logic hasn't changed"},
+   {v:"9C7R_l74eJs",l:"HI",t:"Google Search ads full tutorial (Hindi)",n:"Marketing Fundas, 2025"}
+  ],
+  reads:[
+   {t:"About AI Max for Search campaigns",u:"https://support.google.com/google-ads/answer/15910366?hl=en"},
+   {t:"Set up AI Max for Search campaigns",u:"https://support.google.com/google-ads/answer/15909989?hl=en"},
+   {t:"About the search terms report",u:"https://support.google.com/google-ads/answer/13738234"},
+   {t:"About negative keyword lists",u:"https://support.google.com/google-ads/answer/2453983?hl=en"},
+   {t:"About responsive search ads",u:"https://support.google.com/google-ads/answer/7684791?hl=en"}
+  ]},
+ {t:"Quality Score and ad quality",
+  simple:"Quality Score is a 1–10 rating per keyword, built from three parts: <b>expected CTR</b>, <b>ad relevance</b> and <b>landing page experience</b>. It's a diagnostic that summarises how Google judges your ad quality. Higher ad quality generally means better positions and lower cost per click. <b>Search lost IS (rank)</b> shows impressions lost to low Ad Rank.",
+  qa:[
+   {q:"What is Quality Score and what affects it?",
+    s:"A 1–10 keyword rating from expected CTR, ad relevance and landing page experience.",
+    e:"It's a summary of Google's view of your ad quality. The auction uses real-time quality for each search, and Quality Score reports it after the fact. Better quality means lower CPCs and better positions.",
+    x:""},
+   {q:"How do you improve a low Quality Score?",
+    s:"Find which of the three parts is 'Below average' and fix that one.",
+    e:"Expected CTR: sharper headlines, assets, the right match types. Ad relevance: tighter ad groups and the keyword in the headline. Landing page: a fast, mobile-friendly page that matches the search, with the course and location the person searched for.",
+    x:"I built 35+ course pages at Elite IIT. Matching each page to the course and area people search for is what landing page relevance rewards."}
+  ],
+  vids:[{v:"qx0wCPxWEXs",l:"EN",t:"How to improve Google Ads Quality Score",n:"Chapters: expected CTR 0:33, ad relevance 4:07, landing page 7:44",ch:[[33,"Expected CTR"],[247,"Ad relevance"],[464,"Landing page"]]}],
+  reads:[
+   {t:"About ad quality (Google Ads Help)",u:"https://support.google.com/google-ads/answer/156066?hl=en"}
+  ]},
+ {t:"Full courses in Hindi and Kannada",
+  simple:"Use these when an English explanation doesn't click. They cover set-up and practice more than the 2026 exam framework, so use the chapters above for exam topics.",
+  qa:[],
+  vids:[
+   {list:"PLXwTOG3-tRwhml3nc82m0dLA4xuQAoHT9",l:"HI",t:"Google Ads complete course 2025 (Hindi playlist)",n:"Marketing Fundas"},
+   {list:"PLBr3yi4Ki5FMILzlTsqRFqv2rTEJcVy6N",l:"KN",t:"Google Ads in Kannada (playlist)",n:"Marketing Mane"}
+  ],
+  reads:[]}
+ ]},
+
+"gtm": {
+ note:"",
+ chapters:[
+ {t:"How Tag Manager works",
+  simple:"GTM lets you add and change tracking without editing the website code each time. Three parts: a <b>tag</b> is code that sends data somewhere (GA4, Google Ads, Meta). A <b>trigger</b> is the rule for when it fires (page view, click, form submit). A <b>variable</b> is a value used in triggers and tags (Click URL, Page path). Changes live in a <b>workspace</b>, get tested in <b>Preview</b>, then are <b>published</b> as a version you can roll back. The <b>data layer</b> is a JavaScript list on the page where your site can push events for GTM to read.",
+  qa:[
+   {q:"What is Google Tag Manager and why use it?",
+    s:"A tag management system: you install two snippets once, then add and manage tracking tags from GTM without changing site code.",
+    e:"It speeds up changes, keeps all tracking in one place, and lets you test in Preview before anything goes live. Versions mean you can roll back a bad change in one click.",
+    x:"I used GTM to set up call-button conversions on Elite IIT's landing pages without touching the page code."},
+   {q:"What's the difference between a tag, a trigger and a variable?",
+    s:"The tag is what fires, the trigger is when it fires, and the variable supplies values for both.",
+    e:"Example: a Google Ads conversion tag (tag) fires on a link click where Click URL starts with 'tel:' (trigger). Click URL is a built-in variable you have to enable.",
+    x:"That's my call-button setup. Describe your exact trigger in interviews."},
+   {q:"What is the data layer?",
+    s:"A JavaScript array, dataLayer, that the website uses to pass events and values to GTM.",
+    e:"Instead of guessing from clicks, the site pushes a clean event, e.g. dataLayer.push({event:'lead_submit', course:'NEET'}), when the form really succeeds. GTM uses a Custom Event trigger on 'lead_submit'. It's the most reliable way to track forms.",
+    x:"My landing-page form has a custom backend, so I can push a dataLayer event on the success response. That's more reliable than a form-submit trigger."}
+  ],
+  vids:[
+   {v:"nPPHWqJDjvA",s:885,l:"EN",t:"Google Tag Manager for beginners: full course",n:"MeasureSchool. Starts at 'Implement your first tags' (14:45)",ch:[[396,"Install on WordPress"],[885,"First tags"],[1493,"Conversions with GA4"],[2033,"Event tracking"]]},
+   {v:"w14GlRwvWGg",l:"HI",t:"Full Google Tag Manager tutorial 2025 (Hindi)",n:""}
+  ],
+  reads:[
+   {t:"Introduction to Tag Manager",u:"https://support.google.com/tagmanager/answer/6102821?hl=en"},
+   {t:"Components of Tag Manager (tags, triggers, variables)",u:"https://support.google.com/tagmanager/answer/6103657?hl=en"},
+   {t:"About triggers",u:"https://support.google.com/tagmanager/answer/7679316?hl=en"},
+   {t:"About variables",u:"https://support.google.com/tagmanager/answer/7683056?hl=en"},
+   {t:"Built-in variables for web containers",u:"https://support.google.com/tagmanager/answer/7182738?hl=en"}
+  ]},
+ {t:"Installing GTM and GA4 through it",
+  simple:"Install the two GTM snippets on every page, or use a WordPress plugin. Then add a <b>Google tag</b> in GTM with your GA4 measurement ID, fired on all pages. If you move GA4 from Site Kit to GTM, <b>remove it from Site Kit</b>. Two GA4 installs double-count page views and events.",
+  qa:[
+   {q:"How do you set up GA4 through Tag Manager?",
+    s:"Create a Google tag in GTM with the GA4 measurement ID, trigger it on all pages, test in Preview, publish.",
+    e:"Then add GA4 event tags for actions like form submits and call clicks. Use shared settings variables so every tag sends the same configuration. Check in GA4 DebugView that events arrive.",
+    x:""},
+   {q:"What happens if GA4 is installed twice?",
+    s:"Page views and events are counted twice, so engagement and conversion numbers become unreliable.",
+    e:"It's common when a plugin like Site Kit and GTM both load GA4. In Tag Assistant you'd see the same measurement ID twice. Keep one source.",
+    x:"On solarbooked.com I set GA4 up with Site Kit, so when I move it to GTM I'll switch Site Kit's GA4 off first."}
+  ],
+  vids:[
+   {v:"nPPHWqJDjvA",s:396,l:"EN",t:"GTM full course: install on WordPress",n:"Same course, starts at 6:36"},
+   {v:"m-pbs7qgYJs",l:"EN",t:"How to set up GA4 with Google Tag Manager",n:"Step by step"},
+   {v:"8DrJa4GzBB4",l:"HI",t:"Install Google Analytics 4 with Google Tag Manager (Hindi)",n:"Marketing Fundas, older but the steps still apply"}
+  ],
+  reads:[{t:"Set up Google Analytics in Tag Manager",u:"https://support.google.com/tagmanager/answer/9442095?hl=en"}]},
+ {t:"Tracking calls, WhatsApp and forms",
+  simple:"<b>Calls</b>: a Just Links click trigger where Click URL starts with <code>tel:</code>. <b>WhatsApp</b>: Click URL contains <code>wa.me</code> or <code>api.whatsapp.com</code>. <b>Forms</b>: the GTM form-submit trigger often misses modern forms, so prefer a thank-you page view or a dataLayer event pushed on success. Remember a call-button click is a <b>click</b>, not a connected call.",
+  qa:[
+   {q:"How did you track call-button clicks?",
+    s:"A GTM click trigger on links whose URL starts with 'tel:', firing a conversion tag.",
+    e:"Enable the Click URL variable, create a Just Links trigger filtered on Click URL starts with tel:, attach the conversion tag (Google Ads and/or a GA4 event like call_click), test in Preview by clicking the button, then publish.",
+    x:"That's what runs on Elite IIT's landing pages. Say which destination yours sends to: Google Ads, GA4, or both."},
+   {q:"Is a call click the same as a phone call?",
+    s:"No. It counts taps on the number, not calls that connected or lasted.",
+    e:"Some people tap and hang up; some dial manually without clicking. For real calls you'd use call-tracking numbers, or Google's call conversions with a minimum call length.",
+    x:""},
+   {q:"What's the most reliable way to track a form?",
+    s:"A dataLayer event pushed when the server confirms success, or a dedicated thank-you page.",
+    e:"Click and generic form-submit triggers fire even when validation fails, or not at all on AJAX forms. A success event only fires for real submissions.",
+    x:""}
+  ],
+  vids:[
+   {v:"e3dqPhYkTqs",l:"EN",t:"Track phone number clicks with GTM and GA4",n:"Older UI, same method"},
+   {v:"rixmC9fCh9E",l:"EN",t:"Phone and email click events with GTM and GA4",n:""},
+   {v:"-p37u1kYoCk",l:"EN",t:"Send form submission events to GA4 from GTM",n:""}
+  ],
+  reads:[{t:"About triggers (click and form triggers)",u:"https://support.google.com/tagmanager/answer/7679316?hl=en"}]},
+ {t:"Testing and debugging",
+  simple:"<b>Preview</b> opens Tag Assistant and shows, for each click or page, which tags fired and which didn't, and why. GA4 <b>DebugView</b> shows the events arriving. Common faults: a trigger condition that never matches, a variable not enabled, two triggers on one tag (double firing), GTM installed twice, or GA4 also hard-coded.",
+  qa:[
+   {q:"A tag fires twice per click. How do you find out why?",
+    s:"Open Preview, click once, and look at which events the tag fired on and which triggers matched.",
+    e:"Usual causes: the tag has two triggers (e.g. All Elements and Just Links), the container is installed twice, or the same tracking is also hard-coded or added by a plugin. Fix the trigger or remove the duplicate, then re-test.",
+    x:""},
+   {q:"How do you test before publishing?",
+    s:"GTM Preview with Tag Assistant, plus GA4 DebugView or the Google Ads tag diagnostics.",
+    e:"Walk the real user path: land, click call, submit the form, and confirm each tag fires once with the right values. Publish with a clear version name so you can roll back.",
+    x:""}
+  ],
+  vids:[{v:"Z9odAJjuNEg",s:395,l:"EN",t:"MeasureSchool GTM lesson 2: install and test",n:"Starts at Tag Assistant (6:35); Preview mode at 8:03",ch:[[395,"Tag Assistant"],[483,"Preview mode"]]}],
+  reads:[
+   {t:"Preview and debug containers",u:"https://support.google.com/tagmanager/answer/6107056?hl=en"},
+   {t:"Troubleshoot with Tag Assistant",u:"https://support.google.com/tagmanager/answer/10039345?hl=en"},
+   {t:"Monitor events in GA4 DebugView",u:"https://support.google.com/analytics/answer/7201382?hl=en"}
+  ]},
+ {t:"Hindi full course",simple:"A complete GTM series in Hindi for revision.",qa:[],
+  vids:[{list:"PLXwTOG3-tRwghqEvzWyrMZudQd9mFVJiQ",l:"HI",t:"Google Tag Manager full course (Hindi playlist)",n:"Marketing Fundas"}],reads:[],
+  gap:"No good Kannada video on Tag Manager turned up."}
+ ]},
+
+"ga4": {
+ note:"",
+ chapters:[
+ {t:"How GA4 counts things: events",
+  simple:"In GA4 everything is an <b>event</b>. Four kinds: <b>automatic</b> (first_visit, session_start), <b>enhanced measurement</b> (scrolls, outbound clicks, file downloads; switched on in settings), <b>recommended</b> (Google's standard names, like <code>generate_lead</code>), and <b>custom</b> (your own, like <code>call_click</code>). Events carry <b>parameters</b> (course, branch). To report on a parameter you register it as a <b>custom dimension</b>.",
+  qa:[
+   {q:"What types of events does GA4 have?",
+    s:"Automatic, enhanced measurement, recommended and custom.",
+    e:"Use a recommended name when one fits, like generate_lead for a lead form, so GA4 understands it. Use custom events only for things Google doesn't define. Parameters add detail, and custom dimensions make them reportable.",
+    x:""},
+   {q:"GA4 shows fewer leads than your CRM or sheet. Why?",
+    s:"Tracking gaps, consent and ad blockers, duplicates removed, and leads that never touched the website.",
+    e:"1) Tag not firing on some forms or pages. 2) Ad blockers or browsers blocking GA4. 3) Your sheet includes calls, WhatsApp and walk-ins that never hit the site. 4) Time zone differences between tools. 5) Duplicate or spam entries in the sheet.",
+    x:"At Elite IIT many leads come by WhatsApp and direct calls, which never touch the website, so GA4 will always show fewer leads than our sheet."}
+  ],
+  vids:[
+   {v:"e0iA4_CtZOU",l:"EN",t:"How to track events in Google Analytics 4",n:"Automatic, enhanced, recommended and custom events"},
+   {v:"NmfzGjGESrA",l:"HI",t:"Master Google Analytics 4: complete course (Hindi)",n:"3-hour course"}
+  ],
+  reads:[{t:"GA4 Events report",u:"https://support.google.com/analytics/answer/12926615?hl=en"}]},
+ {t:"Key events and Google Ads conversions",
+  simple:"A <b>key event</b> is an event you mark as important to the business (GA4 renamed 'conversions' to key events). Mark only real business actions: lead form, call click, WhatsApp click. Not page views. <b>Google Ads conversions</b> are separate: they're what bidding uses. You can import GA4 key events into Google Ads as conversions, then choose which are primary (used for bidding) and which are secondary (reported only).",
+  qa:[
+   {q:"What's the difference between an event and a key event?",
+    s:"Every interaction is an event. A key event is one you've marked as important to the business.",
+    e:"Marking it unlocks key event counts and rates in reports, and lets you import it into Google Ads. Don't mark everything. If 'scroll' is a key event your conversion rate becomes meaningless.",
+    x:""},
+   {q:"How do GA4 key events relate to Google Ads conversions?",
+    s:"You import a GA4 key event into Google Ads as a conversion action. Google Ads bids on primary conversions only.",
+    e:"Google Ads conversions can also come straight from the Google Ads tag. Avoid counting the same lead from both as primary, or you double-count and the bidder over-values clicks.",
+    x:""}
+  ],
+  vids:[
+   {v:"A546lw0g_4s",l:"EN",t:"GA4 key events: how to track conversions (2025 update)",n:"Viewing, creating and finding key events; Tag Manager method"},
+   {v:"-WAyTLZ5EY4",l:"EN",t:"How to create GA4 key events with Tag Manager",n:"Step by step"}
+  ],
+  reads:[
+   {t:"About key events",u:"https://support.google.com/analytics/answer/9267568?hl=en"},
+   {t:"Mark events as key events",u:"https://support.google.com/analytics/answer/13128484?hl=en"},
+   {t:"Create or modify key events (e.g. from a thank-you page view)",u:"https://support.google.com/analytics/answer/12844695?hl=en"},
+   {t:"Measure lead-form submissions as key events",u:"https://support.google.com/analytics/answer/12946393?hl=en"},
+   {t:"Create Google Ads conversions from GA4 events",u:"https://support.google.com/google-ads/answer/2375435?hl=en"}
+  ]},
+ {t:"Reports and explorations",
+  simple:"<b>Traffic acquisition</b> is session-based: what brought each visit. <b>User acquisition</b> is first-touch: what first brought each new user. <b>Explorations</b> let you build funnels (landing page → form start → submit) and free-form tables. Practise on Google's free <b>demo account</b> (Google Merchandise Store), which has real data.",
+  qa:[
+   {q:"Traffic acquisition vs user acquisition?",
+    s:"Traffic acquisition credits each session's source. User acquisition credits the source that first brought the user.",
+    e:"Someone finds you through a Meta ad, then comes back later through Google search. User acquisition says Meta; traffic acquisition shows both sessions, Meta then organic.",
+    x:""},
+   {q:"Which report shows which campaign brought the most leads?",
+    s:"Traffic acquisition with 'Session campaign' as the dimension and the key events column filtered to the lead event.",
+    e:"This only works if UTMs are tagged consistently. Otherwise campaigns blur together under '(not set)' or the wrong channel.",
+    x:""}
+  ],
+  vids:[
+   {v:"mKu6FI53BxE",l:"EN",t:"Google Analytics 4 tutorial for beginners (2025)",n:"Installation, interface, reports, key events"},
+   {v:"opxoXqjTggc",l:"HI",t:"Google Analytics complete tutorial series in Hindi (part 1)",n:""}
+  ],
+  reads:[
+   {t:"GA4 demo account (Google Merchandise Store)",u:"https://support.google.com/analytics/answer/6367342?hl=en"},
+   {t:"Default channel group definitions",u:"https://support.google.com/analytics/answer/9756891?hl=en"}
+  ],
+  gap:"No good Kannada video on GA4 turned up."}
+ ]},
+
+"utm": {
+ note:"",
+ chapters:[
+ {t:"UTM tags and a naming rule",
+  simple:"UTMs are tags on a link that tell GA4 where a visit came from: <code>utm_source</code> (facebook), <code>utm_medium</code> (paid), <code>utm_campaign</code> (neet_jayanagar), plus optional <code>utm_content</code> (which ad) and <code>utm_term</code> (keyword). GA4 treats <b>Facebook</b> and <b>facebook</b> as different values, so write one rule (all lower case, underscores) and stick to it. Don't add UTMs to Google Ads links: auto-tagging (GCLID) already handles them. In Meta, use the URL parameters field with dynamic values like <code>{{campaign.name}}</code>.",
+  qa:[
+   {q:"What are UTM parameters and why use them?",
+    s:"Tags added to a link so analytics knows exactly which source, medium and campaign sent the visitor.",
+    e:"Without them, Meta traffic shows up vaguely as social or referral, and you can't compare campaigns or ads in GA4. With a consistent rule you can see leads and cost per lead by campaign, course and branch.",
+    x:"For Elite IIT I'd use source=facebook, medium=paid, campaign=course_branch (e.g. neet_jayanagar) and content=ad name."},
+   {q:"How would you name UTMs for 4 branches and 9 courses?",
+    s:"One fixed pattern: lower case, underscores, campaign = course_branch, content = the ad.",
+    e:"Keep a shared sheet of allowed values so nobody invents 'FB' vs 'facebook'. Use Meta's dynamic parameters so names fill in automatically and can't be mistyped.",
+    x:""},
+   {q:"Why not put UTMs on Google Ads?",
+    s:"Auto-tagging already passes the GCLID, which GA4 reads when the accounts are linked. Manual UTMs can conflict with it.",
+    e:"Keep auto-tagging on, link Google Ads with GA4, and tag only non-Google traffic: Meta, email, WhatsApp broadcasts, QR codes.",
+    x:""}
+  ],
+  vids:[
+   {v:"onjqJJwcpR8",s:25,l:"EN",t:"What are UTM parameters?",n:"Starts at the definition; naming conventions at 10:53",ch:[[25,"What UTMs are"],[653,"Naming conventions"]]},
+   {v:"W3BMzRSo0UM",s:147,l:"EN",t:"Campaign tracking with UTM parameters in GA4",n:"Starts at 'Anatomy of a campaign URL' (2:27)"}
+  ],
+  reads:[
+   {t:"Google's Campaign URL Builder (tool)",u:"https://ga-dev-tools.google/campaign-url-builder/"},
+   {t:"GA4 default channel group (which source/medium lands in which channel)",u:"https://support.google.com/analytics/answer/9756891?hl=en"}
+  ],
+  gap:"No good Hindi or Kannada UTM video turned up. The English ones are short and visual."},
+ {t:"Attribution: why Meta, Google and GA4 never agree",
+  simple:"Each tool counts differently. <b>Meta</b> credits conversions within its attribution window (7-day click and 1-day view by default) and can count view-through. <b>Google Ads</b> credits its own clicks. <b>GA4</b> spreads credit across all channels and drops what it can't see (blockers, consent). <b>Your sheet</b> counts real people, including calls and WhatsApp. Different numbers are normal, so explain the gap instead of picking one.",
+  qa:[
+   {q:"Why do Meta Ads Manager and GA4 show different lead counts?",
+    s:"Different attribution windows, view-through credit in Meta, cross-channel credit in GA4, and tracking loss in the browser.",
+    e:"Meta can claim a lead from someone who saw an ad and later came via Google search. GA4 would credit organic search. GA4 also misses users who block it. Neither is wrong; they answer different questions.",
+    x:"That's why at Elite IIT I report bookings from our own leads sheet as the source of truth, and use the platforms to compare ads with each other."},
+   {q:"Last click vs data-driven attribution?",
+    s:"Last click gives all credit to the final click. Data-driven splits credit across touchpoints based on how they actually contributed.",
+    e:"Data-driven is the default in GA4 and Google Ads where eligible. Last click undervalues upper-funnel channels like Meta video that start the journey.",
+    x:""}
+  ],
+  vids:[
+   {v:"zQXa-tzd3YM",l:"EN",t:"UTM parameters not working in GA4? Reasons and fixes",n:"Useful troubleshooting"},
+   {v:"e9nRdQFNXsU",l:"EN",t:"How to track and report on campaigns in GA4",n:"Where UTM data appears in reports"}
+  ],
+  reads:[{t:"GA4 default channel group",u:"https://support.google.com/analytics/answer/9756891?hl=en"}]}
+ ]}
+};
+
+(function(){
+const esc2=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const ts=n=>{const m=Math.floor(n/60),s=n%60;return m+":"+String(s).padStart(2,"0")};
+function vidHTML(v){
+  const yt=v.list?`https://www.youtube.com/playlist?list=${v.list}`:`https://www.youtube.com/watch?v=${v.v}${v.s?`&t=${v.s}s`:""}`;
+  const face=v.list?`<div class="pl">▶ Playlist<br><span style="font-weight:400;font-size:13px">click to load</span></div>`
+    :`<img loading="lazy" alt="" onerror="this.remove()" src="https://i.ytimg.com/vi/${v.v}/hqdefault.jpg"><div class="play"><span>▶</span></div>`;
+  const chs=(v.ch||[]).map(c=>`<button type="button" data-t="${c[0]}">${ts(c[0])} ${esc2(c[1])}</button>`).join("");
+  return `<div class="vid" data-lang="${v.l}"><div class="frame" tabindex="0" role="button" aria-label="Play ${esc2(v.t)}" data-v="${v.v||""}" data-list="${v.list||""}" data-s="${v.s||0}">${face}</div>
+  <div class="vmeta"><div class="vt"><span class="lang ${v.l}">${v.l}</span>${esc2(v.t)}</div>${v.n?`<div>${esc2(v.n)}</div>`:""}${chs?`<div class="chs">${chs}</div>`:""}<div><a href="${yt}" target="_blank" rel="noopener">Open on YouTube</a> if it won't play here</div></div></div>`;
+}
+function play(frame,start){
+  const v=frame.dataset.v,l=frame.dataset.list,s=start!=null?start:+frame.dataset.s;
+  const src=l?`https://www.youtube-nocookie.com/embed/videoseries?list=${l}&rel=0`
+    :`https://www.youtube-nocookie.com/embed/${v}?autoplay=1&rel=0&start=${s}`;
+  frame.innerHTML=`<iframe src="${src}" title="YouTube video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+}
+function qaHTML(x){
+  return `<div class="qa"><div class="q">“${esc2(x.q)}”</div><div class="lvl"><b>Short answer</b><div>${esc2(x.s)}</div></div>
+  <details><summary>If they say “expand on that”${x.x?" / “give an example”":""}</summary><div class="lvl" style="margin-top:6px"><b>Expanded</b><div>${esc2(x.e)}</div>${x.x?`<b>Your example</b><div>${esc2(x.x)}</div>`:""}</div></details></div>`;
+}
+Object.entries(GUIDE).forEach(([id,g])=>{
+  const art=document.getElementById(id); if(!art) return;
+  const d=document.createElement("details"); d.className="guide";
+  const nq=g.chapters.reduce((a,c)=>a+c.qa.length,0), nv=g.chapters.reduce((a,c)=>a+c.vids.length,0);
+  d.innerHTML=`<summary>Study guide · ${g.chapters.length} chapters · ${nq} interview questions · ${nv} videos</summary>`+
+   (g.note?`<div class="gnote">${esc2(g.note)}</div>`:"")+
+   g.chapters.map((c,i)=>`<details class="chap"${i===0?" open":""}><summary>${i+1}. ${esc2(c.t)} <small>${c.qa.length} Q&amp;A · ${c.vids.length} videos</small></summary><div class="inner">
+     <div class="h5">In simple words</div><p class="simple">${c.simple}</p>
+     ${c.qa.length?`<div class="h5">Interview Q&amp;A</div>${c.qa.map(qaHTML).join("")}`:""}
+     ${c.gap?`<p class="gap">⚠ ${esc2(c.gap)}</p>`:""}
+     ${c.vids.length?`<div class="h5">Watch</div><div class="vids">${c.vids.map(vidHTML).join("")}</div>`:""}
+     ${c.reads.length?`<div class="h5">Read (official first)</div><ul class="reads">${c.reads.map(r=>`<li><a href="${r.u}" target="_blank" rel="noopener">${esc2(r.t)}</a></li>`).join("")}</ul>`:""}
+   </div></details>`).join("");
+  art.appendChild(d);
+});
+document.querySelectorAll(".mod").forEach(a=>{ if(!GUIDE[a.id]){const p=document.createElement("p");p.className="soon";p.textContent="Study guide for this module comes in the next update.";a.appendChild(p);} });
+document.addEventListener("click",e=>{
+  const b=e.target.closest(".chs button"); if(b){const f=b.closest(".vid").querySelector(".frame");play(f,+b.dataset.t);return;}
+  const f=e.target.closest(".frame"); if(f&&!f.querySelector("iframe")) play(f);
+});
+document.addEventListener("keydown",e=>{const f=e.target.closest&&e.target.closest(".frame");if(f&&(e.key==="Enter"||e.key===" ")&&!f.querySelector("iframe")){e.preventDefault();play(f);}});
+const LK="umair-roadmap-langs";
+function applyLang(){const on=[...document.querySelectorAll("#langbar input:checked")].map(i=>i.value);document.querySelectorAll(".vid").forEach(v=>v.style.display=on.includes(v.dataset.lang)?"":"none");try{localStorage.setItem(LK,JSON.stringify(on))}catch(e){}}
+try{const saved=JSON.parse(localStorage.getItem(LK)||"null");if(saved)document.querySelectorAll("#langbar input").forEach(i=>i.checked=saved.includes(i.value));}catch(e){}
+document.getElementById("langbar").addEventListener("change",applyLang);applyLang();
+})();
 </script>
 </body>
 </html>
